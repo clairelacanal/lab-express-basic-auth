@@ -63,5 +63,15 @@ router.post('/login', (req, res, next) => {
     }).catch(err => next(err))
 })
 
+router.get('/private',(req,res,next)=> {
+    res.render('auth/private', {
+        user: req.session.user
+    })
+})
+
+router.get('/main',(req,res,next) => {
+    res.render('auth/main')
+})
+
 
 module.exports = router;
