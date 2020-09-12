@@ -18,13 +18,18 @@ router.post('/signup', (req, res, next) => {
     } = req.body;
 
     const passwordHashed = bcryptjs.hashSync(password, salt);
-
+    if (username === '' || password === '') {
+        res.render('auth/signup', {
+            errorMessage: 'Please fill in alll the fields'
+        });
+        return;
+    }
     User.create({
         username: username,
         password: passwordHashed
     }).then(newUser => {
         res.send('ouiiiiiiiiii')
-    }).catch(err => next(err));
+    }).catch(err => next(err))
 })
 
 
@@ -63,13 +68,13 @@ router.post('/login', (req, res, next) => {
     }).catch(err => next(err))
 })
 
-router.get('/private',(req,res,next)=> {
+router.get('/private', (req, res, next) => {
     res.render('auth/private', {
         user: req.session.user
     })
 })
 
-router.get('/main',(req,res,next) => {
+router.get('/main', (req, res, next) => {
     res.render('auth/main')
 })
 
