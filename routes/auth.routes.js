@@ -69,6 +69,8 @@ router.post('/login', (req, res, next) => {
         });
         return;
     }
+
+
     User.findOne({
         username: username
     }).then(user => {
@@ -78,7 +80,7 @@ router.post('/login', (req, res, next) => {
             })
             return;
         }
-        if (bcryptjs.compareSync(password, user.password)) {
+        if (bcryptjs.compareSync(password, user.password)) { //user.password = user de la base de données
             req.session.user = user;
             res.send("loggued !")
         } else {
