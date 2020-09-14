@@ -2,13 +2,13 @@
 
 <div id="form">
     <h2>Login</h2>
-    <form action="/login" method="POST">
+    <form name="login" action="/login" method="POST">
         <label for="input-username">Username</label>
         {{!-- Permet de lier le label avec le champ --}}
-        <input type=" username" id="input-username" name="username" placeholder="Your usernae" />
+        <input type=" username" id="input-username" name="username" placeholder="Your usernae" required />
 
         <label for="input-password">Password</label>
-        <input type="password" name="password" id="input-password" placeholder="********" />
+        <input type="password" name="password" id="input-password" placeholder="********" required/>
 
         <button type="submit">Login</button>
 
