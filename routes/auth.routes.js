@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const User = require('../models/User.model.js');
 const router = express.Router();
 
+
+
+//Quand mon utilisateur n'a pas encore de compte
 router.get('/signup', (req, res, next) => {
     res.render('auth/signup')
 })
@@ -17,13 +20,28 @@ router.post('/signup', (req, res, next) => {
         password
     } = req.body;
 
+    
     const passwordHashed = bcryptjs.hashSync(password, salt);
-    if (username === '' || password === '') {
+  
+    
+     if(username==="" || password===""){
         res.render('auth/signup', {
-            errorMessage: 'Please fill in alll the fields'
-        });
+            errorMessage: 'Vides'
+        })
         return;
+    }else if(username === username){
+        res.render('auth/signup', {
+            errorMessage: 'Déjà pris'
+        })
     }
+    //else if(username === username){
+      //  res.render('auth/signup', {
+        //    errorMessage: 'Deja pris'
+        //})
+        //return;   
+   // }
+
+
     User.create({
         username: username,
         password: passwordHashed
@@ -33,6 +51,9 @@ router.post('/signup', (req, res, next) => {
 })
 
 
+
+
+//Quand mon utilisateur a déjà un compte enregistré
 router.get('/login', (req, res, next) => {
     res.render('auth/login')
 })
@@ -67,6 +88,9 @@ router.post('/login', (req, res, next) => {
         }
     }).catch(err => next(err))
 })
+
+
+
 
 router.get('/private', (req, res, next) => {
     res.render('auth/private', {
